@@ -1,11 +1,10 @@
 package com.shakib.gsk2022
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import com.shakib.gsk2022.common.base.BaseActivity
+import com.shakib.gsk2022.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
+class MainActivity : BaseActivity<ActivityMainBinding>() {
+
+    override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
+
 }

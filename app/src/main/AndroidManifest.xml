@@ -3,6 +3,7 @@
     package="com.shakib.gsk2022">
 
     <application
+        android:name=".common.di.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
