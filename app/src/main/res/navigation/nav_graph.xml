@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.shakib.gsk2022.presentation.screens.HomeFragment"
+        android:name="com.shakib.gsk2022.presentation.screens.home.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home">
         <argument
@@ -15,4 +15,35 @@
             app:argType="string"
             app:nullable="true" />
     </fragment>
+
+    <fragment
+        android:id="@+id/mediaPickerFragment"
+        android:name="com.shakib.gsk2022.presentation.screens.picker.MediaPickerFragment"
+        android:label="MediaPicker"
+        tools:layout="@layout/fragment_media_picker">
+        <argument
+            android:name="data"
+            app:argType="string"
+            app:nullable="false" />
+    </fragment>
+
+    <action
+        android:id="@+id/homeToMediaPicker"
+        app:destination="@id/mediaPickerFragment" />
+
+
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.shakib.gsk2022.presentation.screens.camera.CameraFragment"
+        android:label="Camera"
+        tools:layout="@layout/fragment_camera">
+        <argument
+            android:name="data"
+            app:argType="string"
+            app:nullable="false" />
+    </fragment>
+
+    <action
+        android:id="@+id/homeToCamera"
+        app:destination="@id/cameraFragment" />
 </navigation>

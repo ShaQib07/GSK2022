@@ -6,8 +6,15 @@ import android.graphics.BitmapFactory
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import java.io.IOException
 import java.net.URL
 
@@ -43,5 +50,18 @@ fun URL.toBitmap(): Bitmap? {
         BitmapFactory.decodeStream(openStream())
     } catch (e: IOException) {
         null
+    }
+}
+
+fun <T> Fragment.collectFlow(flow: Flow<T>, collect: suspend (T) -> Unit) {
+    lifecycleScope.launch {
+        // repeatOnLifecycle launches the block in a new coroutine every time the
+        // lifecycle is in the STARTED state (or above) and cancels it when it's STOPPED.
+        repeatOnLifecycle(Lifecycle.State.STARTED) {
+            // Trigger the flow and start listening for values.
+            // Note that this happens when lifecycle is STARTED and stops
+            // collecting when the lifecycle is STOPPED
+            flow.collectLatest(collect)
+        }
     }
 }
