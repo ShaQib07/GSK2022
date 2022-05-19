@@ -3,8 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/custom_thumb.xml" value="0.2085" />
+        <entry key="app/src/main/res/drawable/flash_bg.xml" value="0.2085" />
+        <entry key="app/src/main/res/drawable/ic_add_image.xml" value="0.2085" />
+        <entry key="app/src/main/res/drawable/ic_capture.xml" value="0.2085" />
+        <entry key="app/src/main/res/drawable/ic_check.xml" value="0.2085" />
+        <entry key="app/src/main/res/drawable/ic_flash_off_blue.xml" value="0.2085" />
+        <entry key="app/src/main/res/drawable/ic_gallery.xml" value="0.2085" />
+        <entry key="app/src/main/res/drawable/ic_switch_camera.xml" value="0.2085" />
+        <entry key="app/src/main/res/drawable/seek_bar.xml" value="0.2085" />
+        <entry key="app/src/main/res/drawable/switch_camera_bg.xml" value="0.2085" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2677083333333333" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2677083333333333" />
+        <entry key="app/src/main/res/layout/activity_media_picker.xml" value="0.23796296296296296" />
+        <entry key="app/src/main/res/layout/fragment_camera.xml" value="0.225" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_media_picker.xml" value="0.23796296296296296" />
+        <entry key="app/src/main/res/layout/item_image.xml" value="0.23796296296296296" />
+        <entry key="app/src/main/res/layout/media_picker_fragment.xml" value="0.23796296296296296" />
+        <entry key="app/src/main/res/menu/popup_menu.xml" value="0.25092592592592594" />
       </map>
     </option>
   </component>
