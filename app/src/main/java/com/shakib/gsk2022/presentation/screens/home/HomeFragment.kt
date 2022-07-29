@@ -12,6 +12,7 @@ import com.shakib.gsk2022.MainActivity
 import com.shakib.gsk2022.R
 import com.shakib.gsk2022.common.base.BaseFragment
 import com.shakib.gsk2022.common.extensions.gone
+import com.shakib.gsk2022.common.extensions.showShortToast
 import com.shakib.gsk2022.common.extensions.visible
 import com.shakib.gsk2022.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,6 +34,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun configureViews(savedInstanceState: Bundle?) {
         super.configureViews(savedInstanceState)
         binding.fabAdd.setOnClickListener { showPopUpMenu(it) }
+        binding.fabUpload.setOnClickListener { upload() }
     }
 
     override fun onResume() {
@@ -53,6 +55,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
         }
         popupMenu?.show()
+    }
+
+    private fun upload() {
+        (activity as MainActivity).selectedImages.apply {
+            if (isEmpty())
+                context?.showShortToast("No content to upload")
+            else {
+                viewModel.createOneTimeWorkRequest(this)
+            }
+        }
     }
 
     private fun configureRecyclerView() {
