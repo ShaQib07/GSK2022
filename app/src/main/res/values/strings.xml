@@ -3,6 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_image">Add Image</string>
+    <string name="upload">Upload</string>
     <string name="use_camera">Use Camera</string>
     <string name="pick_from_gallery">Pick from Gallery</string>
 </resources>
