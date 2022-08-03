@@ -5,8 +5,10 @@ import com.shakib.gsk2022.common.utils.Resource
 import com.shakib.gsk2022.data.model.Image
 import com.shakib.gsk2022.data.repository.MediaPickerRepo
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.junit.Assert.assertEquals
@@ -17,7 +19,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MediaPickerUseCaseTest {
 
-    val exception = Throwable("Failed")
+    val exception = Exception("Failed")
 
     private lateinit var systemUnderTest: MediaPickerUseCase
     private val mediaPickerRepoTestDouble = MediaPickerRepoTestDouble()
@@ -31,7 +33,9 @@ class MediaPickerUseCaseTest {
     fun fetchAllImages_success() {
         mediaPickerRepoTestDouble.isSuccess = true
         runBlocking {
-            assertEquals(Resource.Success(mutableListOf<Image>()), systemUnderTest.fetchAllImages())
+            systemUnderTest.fetchAllImages().collectLatest {
+                assertEquals(Resource.Success<List<Image>>(listOf()), it)
+            }
         }
     }
 
@@ -39,21 +43,20 @@ class MediaPickerUseCaseTest {
     fun fetchAllImages_failure() {
         mediaPickerRepoTestDouble.isSuccess = false
         runBlocking {
-            assertEquals(
-                Resource.Error<MutableList<Image>>(exception),
-                systemUnderTest.fetchAllImages()
-            )
+            systemUnderTest.fetchAllImages().collectLatest {
+                assertEquals(Resource.Error<List<Image>>(exception), it)
+            }
         }
     }
 
     inner class MediaPickerRepoTestDouble : MediaPickerRepo {
         var isSuccess = true
-        override suspend fun fetchAllImages(): Flow<MutableList<Image>> {
-            return withContext(Dispatchers.IO) {
+        override suspend fun fetchAllImages(): List<Image> {
+            return withContext(Dispatchers.Main) {
                 if (isSuccess)
-                    flow { emit(mutableListOf()) }
+                    listOf()
                 else
-                    flow { throw exception }
+                    throw exception
             }
         }
     }

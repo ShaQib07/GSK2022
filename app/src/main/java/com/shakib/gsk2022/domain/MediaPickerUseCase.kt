@@ -3,19 +3,21 @@ package com.shakib.gsk2022.domain
 import com.shakib.gsk2022.common.utils.Resource
 import com.shakib.gsk2022.data.model.Image
 import com.shakib.gsk2022.data.repository.MediaPickerRepo
-import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class MediaPickerUseCase @Inject constructor(private val mediaPickerRepo: MediaPickerRepo) {
 
-    suspend fun fetchAllImages(): Resource<MutableList<Image>> {
-
-        var imageListResource: Resource<MutableList<Image>> = Resource.Loading()
-
-        mediaPickerRepo.fetchAllImages()
-            .catch { imageListResource = Resource.Error(it) }
-            .collect { imageListResource = Resource.Success(it) }
-
-        return imageListResource
-    }
+    fun fetchAllImages(): Flow<Resource<List<Image>>> =
+        flow {
+            val imageListResource: Resource<List<Image>> = try {
+                Resource.Success(mediaPickerRepo.fetchAllImages())
+            } catch (e: Exception) {
+                Resource.Error(e)
+            }
+            emit(imageListResource)
+        }.flowOn(Dispatchers.IO)
 }
