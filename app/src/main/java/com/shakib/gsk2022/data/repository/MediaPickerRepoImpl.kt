@@ -6,14 +6,13 @@ import android.provider.MediaStore
 import com.shakib.gsk2022.data.model.Image
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
-class MediaPickerRepoImpl @Inject constructor(@ApplicationContext private val context: Context): MediaPickerRepo {
-    override suspend fun fetchAllImages(): Flow<MutableList<Image>> {
+class MediaPickerRepoImpl @Inject constructor(@ApplicationContext private val context: Context) :
+    MediaPickerRepo {
+    override suspend fun fetchAllImages(): List<Image> {
         return withContext(Dispatchers.IO) {
             try {
                 val galleryImages = mutableListOf<Image>()
@@ -42,12 +41,12 @@ class MediaPickerRepoImpl @Inject constructor(@ApplicationContext private val co
                         Timber.d("XYZ | uri - $uri | title - $title | path - $path")
                         galleryImages.add(image)
                     }
-                    flow { emit(galleryImages) }
+                    galleryImages
                 }
-                    ?: flow { emit(mutableListOf()) }
+                    ?: listOf()
             } catch (e: Exception) {
                 Timber.e("XYZ | Error - ${e.message}")
-                flow { throw Throwable(e) }
+                throw e
             }
         }
     }

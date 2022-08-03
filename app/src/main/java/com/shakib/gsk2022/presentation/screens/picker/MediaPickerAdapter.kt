@@ -57,7 +57,7 @@ class MediaPickerAdapter(
     override fun getItemCount() = imageList.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun submitList(imageList: MutableList<Image>) {
+    fun submitList(imageList: List<Image>) {
         this.imageList.clear()
         this.imageList.addAll(imageList)
         notifyDataSetChanged()

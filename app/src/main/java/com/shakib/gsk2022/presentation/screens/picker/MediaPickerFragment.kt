@@ -11,6 +11,7 @@ import com.shakib.gsk2022.MainActivity
 import com.shakib.gsk2022.common.base.BaseFragment
 import com.shakib.gsk2022.common.extensions.collectFlow
 import com.shakib.gsk2022.common.extensions.showLongToast
+import com.shakib.gsk2022.common.extensions.showShortToast
 import com.shakib.gsk2022.common.utils.Resource
 import com.shakib.gsk2022.data.model.Image
 import com.shakib.gsk2022.databinding.FragmentMediaPickerBinding
@@ -51,7 +52,7 @@ class MediaPickerFragment : BaseFragment<FragmentMediaPickerBinding>() {
                 when (it) {
                     is Resource.Loading -> Timber.d("Show Loading")
                     is Resource.Success -> mediaPickerAdapter.submitList(it.data)
-                    is Resource.Error -> Timber.e(it.throwable.message)
+                    is Resource.Error -> context?.showShortToast(it.throwable.message.toString())
                 }
             }
     }

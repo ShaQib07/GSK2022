@@ -4,5 +4,5 @@ import com.shakib.gsk2022.data.model.Image
 import kotlinx.coroutines.flow.Flow
 
 interface MediaPickerRepo {
-    suspend fun fetchAllImages(): Flow<MutableList<Image>>
+    suspend fun fetchAllImages(): List<Image>
 }
