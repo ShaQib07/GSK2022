@@ -80,5 +80,4 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
             data = it.getString(DATA)
         }
     }
-
 }
