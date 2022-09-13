@@ -29,6 +29,6 @@ class DirectoryUseCaseTest {
 
     @Test
     fun getOutputDirectory_failure() {
-        Assert.assertEquals(true, systemUnderTest.getOutputDirectory().name.equals("GSK2022"))
+        Assert.assertEquals(false, systemUnderTest.getOutputDirectory().name.equals("Error"))
     }
 }

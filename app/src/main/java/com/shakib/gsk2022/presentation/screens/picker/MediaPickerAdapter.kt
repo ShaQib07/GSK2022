@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.shakib.gsk2022.R
 import com.shakib.gsk2022.common.extensions.invisible
 import com.shakib.gsk2022.common.extensions.showLongToast
 import com.shakib.gsk2022.common.extensions.visible
@@ -39,16 +40,14 @@ class MediaPickerAdapter(
             }
             tvName.text = currentImage.title
             itemView.setOnClickListener {
-                if (selectedImages.size >= maxSelection)
-                    it.context.showLongToast("Max selection reached")
+                if (selectedImages.contains(currentImage)) {
+                    selectedImages.remove(currentImage)
+                    ivSelect.invisible()
+                } else if (selectedImages.size >= maxSelection)
+                    it.context.showLongToast(it.context.getString(R.string.max_selection))
                 else {
-                    if (selectedImages.contains(currentImage)) {
-                        selectedImages.remove(currentImage)
-                        ivSelect.invisible()
-                    } else {
-                        selectedImages.add(currentImage)
-                        ivSelect.visible()
-                    }
+                    selectedImages.add(currentImage)
+                    ivSelect.visible()
                 }
             }
         }

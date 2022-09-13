@@ -44,9 +44,9 @@ class MediaPickerRepoImpl @Inject constructor(@ApplicationContext private val co
                     galleryImages
                 }
                     ?: listOf()
-            } catch (e: Exception) {
+            } catch (e: IllegalArgumentException) {
                 Timber.e("XYZ | Error - ${e.message}")
-                throw e
+                listOf()
             }
         }
     }
