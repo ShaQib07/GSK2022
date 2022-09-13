@@ -6,4 +6,7 @@
     <string name="upload">Upload</string>
     <string name="use_camera">Use Camera</string>
     <string name="pick_from_gallery">Pick from Gallery</string>
+    <string name="permission_denied">Permission Denied!!!</string>
+    <string name="max_selection">Max selection reached</string>
+    <string name="capture_hint">Press and hold the shutter button to finish capturing.</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.shakib.gsk2022.domain
 
+import android.net.Uri
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.shakib.gsk2022.common.utils.Resource
 import com.shakib.gsk2022.data.model.Image
@@ -16,8 +17,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MediaPickerUseCaseTest {
 
-    val exception = Exception("Failed")
-
+    private val fakeImage = Image(Uri.parse("fake_uri"), "fake_title", "fake_path")
     private lateinit var systemUnderTest: MediaPickerUseCase
     private val mediaPickerRepoTestDouble = MediaPickerRepoTestDouble()
 
@@ -31,7 +31,7 @@ class MediaPickerUseCaseTest {
         mediaPickerRepoTestDouble.isSuccess = true
         runBlocking {
             systemUnderTest.fetchAllImages().collectLatest {
-                assertEquals(Resource.Success<List<Image>>(listOf()), it)
+                assertEquals(Resource.Success(listOf(fakeImage)), it)
             }
         }
     }
@@ -41,7 +41,7 @@ class MediaPickerUseCaseTest {
         mediaPickerRepoTestDouble.isSuccess = false
         runBlocking {
             systemUnderTest.fetchAllImages().collectLatest {
-                assertEquals(Resource.Error<List<Image>>(exception), it)
+                assertEquals(Resource.Success<List<Image>>(listOf()), it)
             }
         }
     }
@@ -51,9 +51,9 @@ class MediaPickerUseCaseTest {
         override suspend fun fetchAllImages(): List<Image> {
             return withContext(Dispatchers.Main) {
                 if (isSuccess)
-                    listOf()
+                    listOf(fakeImage)
                 else
-                    throw exception
+                    listOf()
             }
         }
     }

@@ -1,6 +1,5 @@
 package com.shakib.gsk2022.presentation.screens.camera
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,7 +17,6 @@ import com.shakib.gsk2022.common.base.BaseFragment
 import com.shakib.gsk2022.common.extensions.showLongToast
 import com.shakib.gsk2022.data.model.Image
 import com.shakib.gsk2022.databinding.FragmentCameraBinding
-import com.tbruyelle.rxpermissions3.RxPermissions
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.io.File
@@ -29,8 +27,11 @@ import java.util.concurrent.Executors
 @AndroidEntryPoint
 class CameraFragment : BaseFragment<FragmentCameraBinding>() {
 
+    companion object {
+        const val IMAGE_EXTENSION = ".jpg"
+    }
+
     private val viewModel: CameraViewModel by viewModels()
-    private lateinit var rxPermissions: RxPermissions
     private var maxSelection = 1
     private val clickedImages: ArrayList<Image> = ArrayList()
 
@@ -58,7 +59,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>() {
         binding.fabCapture.apply {
             setOnClickListener {
                 if (clickedImages.size >= maxSelection)
-                    context.showLongToast("Max selection reached")
+                    context.showLongToast(getString(R.string.max_selection))
                 else
                     takePhoto()
             }
@@ -100,20 +101,8 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>() {
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
 
-        startCameraWithPermission()
-
+        startCamera()
         cameraExecutor = Executors.newSingleThreadExecutor()
-    }
-
-    private fun startCameraWithPermission() {
-        rxPermissions = RxPermissions(this)
-        rxPermissions.request(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
-            .subscribe { granted ->
-                if (granted)
-                    startCamera()
-                else
-                    context?.showLongToast("Permission Denied!!!")
-            }
     }
 
     private fun startCamera() {
@@ -177,7 +166,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>() {
         val imageCapture = imageCapture ?: return
 
         // Create time-stamped output file to hold the image
-        val photoFile = File(viewModel.outputDirectory, "${System.currentTimeMillis()}.jpg")
+        val photoFile = File(viewModel.outputDirectory, "${System.currentTimeMillis()}$IMAGE_EXTENSION")
 
         // Create output options object which contains file + metadata
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
@@ -193,8 +182,14 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>() {
                     }
 
                     override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                        showLongToast("Press and hold the shutter button to finish capturing.")
-                        clickedImages.add(Image(photoFile.toUri(), photoFile.name, photoFile.absolutePath))
+                        showLongToast(getString(R.string.capture_hint))
+                        clickedImages.add(
+                            Image(
+                                photoFile.toUri(),
+                                photoFile.name,
+                                photoFile.absolutePath
+                            )
+                        )
                     }
                 })
         }
