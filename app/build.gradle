@@ -8,12 +8,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.shakib.gsk2022"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -46,12 +46,13 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    namespace 'com.shakib.gsk2022'
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -60,12 +61,12 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // Navigation Architecture
-    def nav_version = "2.5.1"
+    def nav_version = "2.5.2"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     // ViewModel, LiveData & Flow
-    def live_data_version = "2.6.0-alpha01"
+    def live_data_version = "2.6.0-alpha02"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$live_data_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$live_data_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$live_data_version"
@@ -94,7 +95,7 @@ dependencies {
     implementation "androidx.activity:activity-ktx:1.5.1"
 
     // Coroutines
-    def coroutines_version = '1.6.1'
+    def coroutines_version = '1.6.4'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
 
@@ -127,7 +128,7 @@ dependencies {
 
     // Camera
     def camera_stable = "1.1.0"
-    def camera_alpha = '1.2.0-alpha04'
+    def camera_alpha = '1.2.0-beta01'
     implementation "androidx.camera:camera-camera2:$camera_stable"
     implementation "androidx.camera:camera-lifecycle:$camera_stable"
     implementation "androidx.camera:camera-view:$camera_alpha"
