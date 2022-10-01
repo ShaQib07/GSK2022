@@ -6,9 +6,7 @@ This is a simple image picker project that helps one to pick/click multiple imag
 ##  Overview
 This project mainly serves as a template for implementing a customized image picker in Android. 
 It uses the Android's MediaStore API to fetch all the images from the device and Camera 2 API for implementing a custom in app camera.
-##  Overview
-This project mainly serves as a template for implementing a customized image picker in Android. 
-It uses the Android's MediaStore API to fetch all the images from the device and Camera 2 API for implementing a custom in app camera.
+
 ## Tech Stack
 
 **Language:** Kotlin
@@ -25,7 +23,7 @@ It uses the Android's MediaStore API to fetch all the images from the device and
 
 **Cloud Storage:** Firebase Storage
 
-**Backgroud Upload:** Work Manager
+**Background Upload:** Work Manager
 
 **Unit Test:** JUint 4
 
